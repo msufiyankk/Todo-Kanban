@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+    <script src="{% static 'tasks/script.js' %}" defer></script>
+    <title>Simple Kanban Board</title>
+    
+</head>
+<body data-theme="light">
+    <div class="header">
+        <h1>📋 Simple Kanban</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-text">🌙 Dark Mode</span>
+        </button>
+    </div>
+
+    <div class="board">
+        <div class="column" data-status="todo">
+            <div class="column-header">📝 To Do</div>
+            <button class="add-task" onclick="showForm('todo')">+ Add Task</button>
+            <div class="add-form" id="form-todo">
+                <input type="text" id="title-todo" placeholder="Task title...">
+                <textarea id="desc-todo" placeholder="Description (optional)..."></textarea>
+                <div class="form-buttons">
+                    <button class="btn btn-primary" onclick="addTask('todo')">Add</button>
+                    <button class="btn btn-secondary" onclick="hideForm('todo')">Cancel</button>
+                </div>
+            </div>
+            <div class="tasks" id="tasks-todo">
+                <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+            </div>
+        </div>
+
+        <div class="column" data-status="doing">
+            <div class="column-header">🔄 Doing</div>
+            <button class="add-task" onclick="showForm('doing')">+ Add Task</button>
+            <div class="add-form" id="form-doing">
+                <input type="text" id="title-doing" placeholder="Task title...">
+                <textarea id="desc-doing" placeholder="Description (optional)..."></textarea>
+                <div class="form-buttons">
+                    <button class="btn btn-primary" onclick="addTask('doing')">Add</button>
+                    <button class="btn btn-secondary" onclick="hideForm('doing')">Cancel</button>
+                </div>
+            </div>
+            <div class="tasks" id="tasks-doing">
+                <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+            </div>
+        </div>
+
+        <div class="column" data-status="done">
+            <div class="column-header">✅ Done</div>
+            <button class="add-task" onclick="showForm('done')">+ Add Task</button>
+            <div class="add-form" id="form-done">
+                <input type="text" id="title-done" placeholder="Task title...">
+                <textarea id="desc-done" placeholder="Description (optional)..."></textarea>
+                <div class="form-buttons">
+                    <button class="btn btn-primary" onclick="addTask('done')">Add</button>
+                    <button class="btn btn-secondary" onclick="hideForm('done')">Cancel</button>
+                </div>
+            </div>
+            <div class="tasks" id="tasks-done">
+                <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

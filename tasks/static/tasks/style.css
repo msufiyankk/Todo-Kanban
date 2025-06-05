@@ -1,0 +1,220 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text: #333333;
+  --border: #e0e0e0;
+  --primary: #4285f4;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --bg: #1a1a1a;
+  --card-bg: #2d2d2d;
+  --text: #ffffff;
+  --border: #404040;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.theme-toggle {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.board {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.column {
+  flex: 1;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  min-height: 500px;
+}
+
+.column-header {
+  text-align: center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.add-task {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px dashed var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.add-task:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+}
+
+.task {
+  background: var(--bg);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  cursor: grab;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.task:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.task.dragging {
+  opacity: 0.5;
+  transform: rotate(3deg);
+  cursor: grabbing;
+}
+
+.task-title {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.task-desc {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.task:hover .delete-btn {
+  opacity: 0.7;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.drop-zone {
+  min-height: 100px;
+  border: 2px dashed transparent;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  margin: 10px 0;
+}
+
+.drop-zone.drag-over {
+  border-color: var(--primary);
+  background: rgba(66, 133, 244, 0.1);
+}
+
+.add-form {
+  display: none;
+  margin-bottom: 15px;
+}
+
+.add-form.active {
+  display: block;
+}
+
+.add-form input,
+.add-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.add-form textarea {
+  resize: vertical;
+  height: 60px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-secondary {
+  background: var(--border);
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .board {
+    flex-direction: column;
+  }
+
+  body {
+    padding: 10px;
+  }
+}
