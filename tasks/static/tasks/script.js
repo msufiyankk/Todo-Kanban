@@ -18,7 +18,7 @@ function toggleTheme() {
 
 // Form management
 function showForm(status) {
-  document.getElementById(`form-${status}`).classList.add("active");
+  document.getElementById(`form-${status}`).classList.add("show");
 }
 
 function hideForm(status) {
@@ -43,7 +43,7 @@ function addTask(status) {
   };
 
   tasks.push(task);
-  hideForm(status);
+  // hideForm(status);
   renderTasks();
 }
 
@@ -109,8 +109,6 @@ function createTaskElement(task) {
 
 function renderTasks() {
   ["todo", "doing", "done"].forEach((status) => {
-      console.log('kkkkkkkkkkkkkkk')
-
     const container = document.getElementById(`tasks-${status}`);
     const statusTasks = tasks.filter((task) => task.status === status);
 
@@ -118,14 +116,10 @@ function renderTasks() {
     const dropZone = container.querySelector(".drop-zone");
     container.innerHTML = "";
     container.appendChild(dropZone);
-      console.log('///////////')
 
     // Add tasks
     statusTasks.forEach((task) => {
-      console.log('cccccccc')
-
-      container.appendChild(createTaskElement(task));
-      console.log('zzzzzzzz')
+    container.appendChild(createTaskElement(task));
     });
   });
 }
@@ -135,7 +129,6 @@ function allowDrop(e) {
   e.preventDefault();
   e.currentTarget.classList.add("drag-over");
 }
-
 
 function dragLeave(e) {
   e.currentTarget.classList.remove("drag-over");
@@ -153,4 +146,3 @@ function drop(e) {
 }
 
 // Initialize with sample tasks
-
