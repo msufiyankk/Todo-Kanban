@@ -47,6 +47,14 @@ function addTask(status) {
   renderTasks();
 }
 
+function changeTaskStatus(taskId, newStatus) {
+  const task = tasks.find((t) => t.id === taskId);
+  if (task) {
+    task.status = newStatus;
+    renderTasks();
+  }
+}
+
 function deleteTask(id) {
   tasks = tasks.filter((task) => task.id !== id);
   renderTasks();
@@ -68,6 +76,22 @@ function createTaskElement(task) {
                     ? `<div class="task-desc">${task.description}</div>`
                     : ""
                 }
+                <div class="task-controls">
+                    <select class="status-select" onchange="changeTaskStatus(${
+                      task.id
+                    }, this.value)">
+                        <option value="todo" ${
+                          task.status === "todo" ? "selected" : ""
+                        }>📝 To Do</option>
+                        <option value="doing" ${
+                          task.status === "doing" ? "selected" : ""
+                        }>🔄 Doing</option>
+                        <option value="done" ${
+                          task.status === "done" ? "selected" : ""
+                        }>✅ Done</option>
+                    </select>
+                    <small style="color: var(--text); opacity: 0.6;">or drag to move</small>
+                </div>
             `;
 
   div.addEventListener("dragstart", function (e) {
@@ -85,6 +109,8 @@ function createTaskElement(task) {
 
 function renderTasks() {
   ["todo", "doing", "done"].forEach((status) => {
+      console.log('kkkkkkkkkkkkkkk')
+
     const container = document.getElementById(`tasks-${status}`);
     const statusTasks = tasks.filter((task) => task.status === status);
 
@@ -92,10 +118,14 @@ function renderTasks() {
     const dropZone = container.querySelector(".drop-zone");
     container.innerHTML = "";
     container.appendChild(dropZone);
+      console.log('///////////')
 
     // Add tasks
     statusTasks.forEach((task) => {
+      console.log('cccccccc')
+
       container.appendChild(createTaskElement(task));
+      console.log('zzzzzzzz')
     });
   });
 }
@@ -105,6 +135,7 @@ function allowDrop(e) {
   e.preventDefault();
   e.currentTarget.classList.add("drag-over");
 }
+
 
 function dragLeave(e) {
   e.currentTarget.classList.remove("drag-over");
@@ -122,29 +153,4 @@ function drop(e) {
 }
 
 // Initialize with sample tasks
-function init() {
-  tasks = [
-    {
-      id: 1,
-      title: "Plan project",
-      description: "Create initial project plan",
-      status: "todo",
-    },
-    {
-      id: 2,
-      title: "Design mockups",
-      description: "Create UI mockups",
-      status: "doing",
-    },
-    {
-      id: 3,
-      title: "Setup repository",
-      description: "Initialize git repo",
-      status: "done",
-    },
-  ];
-  taskId = 4;
-  renderTasks();
-}
 
-init();

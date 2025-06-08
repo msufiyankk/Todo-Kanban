@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import JsonResponse
-from django.http import HttpResponse
+from tasks.models import Todo
 
 def home(request):
-    return render(request,'home.html')
+    tasks = Todo.objects.all()
+    print(tasks,'ffffffffffffffffffffffffffffffffffffffff')
+    return render(request,'home.html',{'todos':tasks})
+

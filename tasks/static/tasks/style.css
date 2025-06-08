@@ -104,6 +104,25 @@ body {
   position: relative;
 }
 
+/* .task-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.status-select {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+} */
+
 .task:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow);
