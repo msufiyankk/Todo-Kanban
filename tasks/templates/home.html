@@ -25,6 +25,7 @@
       <div class="column" data-status="todo">
         <div class="column-header">📝 To Do</div>
         <button class="add-task" onclick="showForm('todo')">+ Add Task</button>
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
         <form action="/" method="POST">
           {% csrf_token %}
           <div class="add-form" id="form-todo">
@@ -146,7 +147,7 @@
 
       <div class="column" data-status="done">
         <div class="column-header">✅ Done</div>
-        <button class="add-task" onclick="showForm('todo')">+ Add Task</button>
+        <button class="add-task" onclick="showForm('done')">+ Add Task</button>
         <form action="/" method="POST">
           {% csrf_token %}
           <div class="add-form" id="form-done">
@@ -193,8 +194,8 @@
                 onchange="changeTaskStatus({{task.id}}, this.value)"
               >
                 <option value="todo">📝 To Do</option>
-                <option value="doing">🔄 Doing</option>
-                <option value="done" selected="">✅ Done</option>
+                <option value="doing" selected="">🔄 Doing</option>
+                <option value="done">✅ Done</option>
               </select>
               <small style="color: var(--text); opacity: 0.6"
                 >or drag to move</small
