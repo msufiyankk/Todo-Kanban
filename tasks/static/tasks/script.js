@@ -18,7 +18,7 @@ function toggleTheme() {
 
 // Form management
 function showForm(status) {
-  document.getElementById(`form-${status}`).classList.add("show");
+  document.getElementById(`form-${status}`).classList.add("active");
 }
 
 function hideForm(status) {
@@ -29,22 +29,51 @@ function hideForm(status) {
 }
 
 // Task management
+// function addTask(status) {
+//   const title = document.getElementById(`title-${status}`).value.trim();
+//   const desc = document.getElementById(`desc-${status}`).value.trim();
+
+//   if (!title) return;
+
+//   const task = {
+//     id: taskId++,
+//     title: title,
+//     description: desc,
+//     status: status,
+//   };
+
+//   tasks.push(task);
+//   hideForm(status);
+//   renderTasks();
+// }
 function addTask(status) {
   const title = document.getElementById(`title-${status}`).value.trim();
   const desc = document.getElementById(`desc-${status}`).value.trim();
 
   if (!title) return;
 
-  const task = {
-    id: taskId++,
-    title: title,
-    description: desc,
-    status: status,
-  };
-
-  tasks.push(task);
-  // hideForm(status);
-  renderTasks();
+  fetch("/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": getCSRFToken(), // 🛡️ Needed to pass CSRF check
+    },
+    body: JSON.stringify({
+      title: title,
+      description: desc,
+      status: status,  // ✅ This ensures correct column
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      tasks.push(data);   // add to local task list
+      hideForm(status);
+      renderTasks();
+    })
+    .catch((err) => console.error("Add task error:", err));
+}
+function getCSRFToken() {
+  return document.querySelector('[name=csrfmiddlewaretoken]').value;
 }
 
 function changeTaskStatus(taskId, newStatus) {
